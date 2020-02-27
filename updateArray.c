@@ -12,8 +12,7 @@
 #include <stdlib.h>
 
 void updateArray (int M, int N, double *p, int *ineighbor, double *integralp, double *c, double* outMatrix){
-    
-    printf("Line 17");
+
     for(int m = 0; m < M; m++){
         
         for(int n = 0; n<N; n++){
@@ -25,7 +24,7 @@ void updateArray (int M, int N, double *p, int *ineighbor, double *integralp, do
             
         }
     }
-    printf("Line 27");
+
     memcpy(outMatrix, p, sizeof(double)*M);
 }
 
@@ -95,16 +94,14 @@ void mexFunction( int nlhs, mxArray *plhs[],
      }
      
             
-    printf("Line 98");
+
     //get the value of the integer M input
     M = mxGetScalar(prhs[0]);
-    
-    printf("Line 102");
+
     
     //get the value of the integer N input
     N = mxGetScalar(prhs[1]);
-    
-    printf("Line 107");
+
     
     //create a pointer to the real data in the input matrix p
     #if MX_HAS_INTERLEAVED_COMPLEX
@@ -112,8 +109,7 @@ void mexFunction( int nlhs, mxArray *plhs[],
     #else
     p = mxGetPr(prhs[2]);
     #endif
-    
-    printf("Line 116");
+
     
     //create an array ineighbor of size M * N of type int32
     int *local_ineighbor = (int *) malloc(M * N * sizeof(int));
@@ -126,7 +122,6 @@ void mexFunction( int nlhs, mxArray *plhs[],
         }
     }
     ineighbor = NULL;
-    printf("Line 128");
     
     //create an array integralp of size M * N of type Double
     double *local_integralp = (double *) malloc(M * N * sizeof(double));
@@ -139,7 +134,6 @@ void mexFunction( int nlhs, mxArray *plhs[],
         }
     }
     integralp = NULL;
-    printf("Line 140");
     
     //create a pointer to the real data in the input matrix integralp
     #if MX_HAS_INTERLEAVED_COMPLEX
@@ -147,13 +141,11 @@ void mexFunction( int nlhs, mxArray *plhs[],
     #else
     c = mxGetPr(prhs[5]);
     #endif
-    
-    printf("Line 149");
+
     
     //create the output matrix
     plhs[0] = mxCreateDoubleMatrix(M,1,mxREAL);
-    
-    printf("Line 154");
+
     
     //get a pointer to the real data in the output matrix
     #if MX_HAS_INTERLEAVED_COMPLEX
@@ -161,12 +153,10 @@ void mexFunction( int nlhs, mxArray *plhs[],
     #else
     outMatrix = mxGetPr(plhs[0]);
     #endif
-    
-    printf("Line 163");
+
     
     updateArray(M, N, p, local_ineighbor, local_integralp, c, outMatrix);
-    
-    printf("Line 167");
+
     
     return;
 }
